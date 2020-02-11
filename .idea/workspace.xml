@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0122568f-9735-4b0e-82fa-a9b883fa06d0" name="Default Changelist" comment="" />
+    <list default="true" id="0122568f-9735-4b0e-82fa-a9b883fa06d0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/Keyboard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/Player.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/Settings.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/SpriteSheet.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/input.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/loaders.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/main.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/math.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,8 +25,12 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="JavaScript File" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="JsFlowSettings">
     <service-enabled>true</service-enabled>
@@ -24,6 +39,7 @@
     <auto-save>true</auto-save>
   </component>
   <component name="ProjectId" id="1XfWJp5mT730TdRoTcHS3dyUBQd" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -33,6 +49,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -53,7 +70,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1581437559112</updated>
-      <workItem from="1581437561561" duration="139000" />
+      <workItem from="1581437561561" duration="7066000" />
     </task>
     <servers />
   </component>
