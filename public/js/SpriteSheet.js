@@ -20,4 +20,10 @@ export default class SpriteSheet {
         context.drawImage(buffer, x, y);
     }
 
+    get(name){
+        // completed
+        const buffer = this.sprites.get(name);
+        return buffer;
+    }
+
 }
