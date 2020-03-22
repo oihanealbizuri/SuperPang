@@ -5,6 +5,15 @@ const frames = ['buster', 'buster-1', 'buster-2', 'buster-3'];
 
 export default class Player extends Object2D {
 
+    // routeFrame() {
+    //     if (this.direction.x !== 0) {
+    //         const frameIndex = Math.floor(this.distance / 10) % frames.length;
+    //         const frameName = frames[frameIndex];
+    //         return frameName;
+    //     }
+    //     return 'buster';
+    // }
+
 
     constructor(size, pos, spriteSheet) {
         super(size, pos);
@@ -48,7 +57,7 @@ export default class Player extends Object2D {
 
         // si buster se sale por la parte inferior de la pantalla
         // position = x, lo más abajo sin salirse
-        if (this.position.y > Settings.SCREEN_HEIGHT){
+        if (this.position.y > Settings.SCREEN_HEIGHT - this.height){
             this.position.y = Settings.SCREEN_HEIGHT - this.height;
         }
 
