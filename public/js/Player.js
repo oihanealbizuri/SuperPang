@@ -50,7 +50,7 @@ export default class Player extends Object2D {
         // position =  lo más a la derecha sin salirse , y
         if (this.position.x < 0){
             this.position.x = 0;
-        } else if (this.position.x > Settings.SCREEN_WIDTH) {
+        } else if (this.position.x > Settings.SCREEN_WIDTH - this.width) {
             this.position.x = Settings.SCREEN_WIDTH - this.width;
         }
 
