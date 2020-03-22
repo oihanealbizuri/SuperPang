@@ -41,7 +41,7 @@ export default class Player extends Object2D {
         }
 
         // position = añadir dirección * tiempo * velocidad del jugador al eje x
-        this.position.x = this.direction.x * time * Settings.PLAYER_SPEED;
+        this.position.x += this.direction.x * time * Settings.PLAYER_SPEED;
 
 
         // si buster se sale por la izquierda de la pantalla
