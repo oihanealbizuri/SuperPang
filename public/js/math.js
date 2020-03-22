@@ -10,10 +10,16 @@ export class Vec2D {
 
     add(other) {
         // si other es una instancia de Vec2D, añadir other a this como vector
+        if (other instanceof Vec2D){
+            this.x += other.x;
+            this.y += other.y;
+        }
         // si no, añadir other a this como escalar
+        else {
+            this.x += other;
+            this.y += other;
+        }
         // devolver this
-        this.x += other.x;
-        this.y += other.y;
         return this;
     }
 
