@@ -1,4 +1,4 @@
-import {loadBuster, loadImage} from "./loaders.js";
+import {loadBalls, loadBuster, loadImage, loadLevel} from "./loaders.js";
 import Settings from "./Settings.js";
 import {setupKeyboard} from "./input.js";
 
@@ -8,11 +8,11 @@ const context = canvas.getContext('2d');
 Settings.SCREEN_WIDTH = canvas.width;
 Settings.SCREEN_HEIGHT = canvas.height;
 
+Promise.all([loadImage('img/sprites_filtered.png'), loadLevel('1')])
+    .then(([image, levelSpec]) => {
 
-loadImage('img/sprites_filtered.png')
-    .then(image => {
-
-        const buster = loadBuster(image);
+        const buster = loadBuster(image, levelSpec.player);
+        const balls = loadBalls(levelSpec.balls);
 
         let deltaTime = 0;
         let lastTime = 0;
@@ -22,6 +22,10 @@ loadImage('img/sprites_filtered.png')
             context.clearRect(0, 0, canvas.width, canvas.height);
             buster.draw(context);
             buster.update(deltaTime / 1000);
+            balls.forEach((ball) => {
+                ball.draw(context);
+                ball.update(deltaTime / 1000);
+            });
             lastTime = time;
 
             requestAnimationFrame(update);

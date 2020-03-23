@@ -26,10 +26,11 @@ export class Vec2D {
     _mul(other) {
         // devolver un nuevo vector igual a
         // this multiplicado por el escalar other
-        let new_vec = new Vec2D(0, 0);
-        new_vec.x = this.x * other.x;
-        new_vec.y = this.y * other.y;
-        return new_vec;
+        // let new_vec = new Vec2D(0, 0);
+        // new_vec.x = this.x * other;
+        // new_vec.y = this.y * other;
+        // return new_vec;
+        return new Vec2D(this.x * other, this.y * other);
     }
 
     equals(other) {
