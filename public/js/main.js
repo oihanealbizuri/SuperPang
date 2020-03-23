@@ -5,8 +5,8 @@ import {setupKeyboard} from "./input.js";
 const canvas = document.getElementById('screen');
 const context = canvas.getContext('2d');
 
-Settings.SCREEN_WIDTH = 400;
-Settings.SCREEN_HEIGHT = 300;
+Settings.SCREEN_WIDTH = canvas.width;
+Settings.SCREEN_HEIGHT = canvas.height;
 
 
 loadImage('img/sprites_filtered.png')

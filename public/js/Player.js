@@ -5,14 +5,14 @@ const frames = ['buster', 'buster-1', 'buster-2', 'buster-3'];
 
 export default class Player extends Object2D {
 
-    // routeFrame() {
-    //     if (this.direction.x !== 0) {
-    //         const frameIndex = Math.floor(this.distance / 10) % frames.length;
-    //         const frameName = frames[frameIndex];
-    //         return frameName;
-    //     }
-    //     return 'buster';
-    // }
+    routeFrame() {
+        if (this.direction.x !== 0) {
+            const frameIndex = Math.floor(this.distance / 10) % frames.length;
+            const frameName = frames[frameIndex];
+            return frameName;
+        }
+        return 'buster';
+    }
 
 
     constructor(size, pos, spriteSheet) {
@@ -25,6 +25,15 @@ export default class Player extends Object2D {
 
     // time respresenta el tiempo que ha pasado desde la última ejecución
     update(time) {
+
+        if (this.direction.x !== 0){
+            this.distance += Settings.PLAYER_SPEED * time;
+        } else {
+            this.distance = 0;
+        }
+
+        // console.log(this.distance, time);
+
         /*
         Asume por el momento que Settings.SCREEN_HEIGHT y Settings.SCREEN_WIDTH indican el tamaño de
         la pantalla del juego. Settings tiene otras constantes definidas (échales un vistazo)
@@ -72,7 +81,7 @@ export default class Player extends Object2D {
 
     draw(context) {
         // pintar this.sprite en el contexto (en posicion x,y)
-        context.drawImage(this.spriteSheet, this.position.x, this.position.y);
+        context.drawImage(this.spriteSheet.get(this.routeFrame()), this.position.x, this.position.y);
     }
 
 }
