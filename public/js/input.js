@@ -32,6 +32,7 @@ export function setupKeyboard(buster) {
     input.addMapping('Space', keyState => {
         if (keyState) {
             console.log('Space');
+            buster.shoot()
         }
     });
     return input;

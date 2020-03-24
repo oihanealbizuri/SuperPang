@@ -2,6 +2,7 @@ import SpriteSheet from "./SpriteSheet.js";
 import {Vec2D} from "./math.js";
 import Player from "./Player.js";
 import {Ball} from "./Ball.js";
+import {Hook} from "./Hook.js";
 
 export function loadLevel(currentLevel) {
     return fetch(`levels/${currentLevel}.json`).then(r => r.json());
@@ -38,4 +39,12 @@ export function loadBuster(image, playerSpec) {
     const size = new Vec2D(32, 32);
 
     return new Player(size, pos, spriteSheet);
+}
+
+export function loadHookManager(image, hooks) {
+    let hookManager = function (x, y) {
+        let position = new Vec2D(x, y);
+        hooks.push(new Hook(0, position, 0, image));
+    }
+    return hookManager;
 }

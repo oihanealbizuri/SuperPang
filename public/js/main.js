@@ -1,4 +1,4 @@
-import {loadBalls, loadBuster, loadImage, loadLevel} from "./loaders.js";
+import {loadBalls, loadBuster, loadHookManager, loadImage, loadLevel} from "./loaders.js";
 import Settings from "./Settings.js";
 import {setupKeyboard} from "./input.js";
 
@@ -8,11 +8,14 @@ const context = canvas.getContext('2d');
 Settings.SCREEN_WIDTH = canvas.width;
 Settings.SCREEN_HEIGHT = canvas.height;
 
-Promise.all([loadImage('img/sprites_filtered.png'), loadLevel('1')])
-    .then(([image, levelSpec]) => {
+Promise.all([loadImage('img/sprites_filtered.png'), loadImage('img/hookRope.png'), loadLevel('1')])
+    .then(([image, hookImage, levelSpec]) => {
 
         const buster = loadBuster(image, levelSpec.player);
         const balls = loadBalls(levelSpec.balls);
+        const hooks = [];
+        const hookManager = loadHookManager(hookImage, hooks);
+        buster.setHookManager(hookManager);
 
         let deltaTime = 0;
         let lastTime = 0;
@@ -25,6 +28,10 @@ Promise.all([loadImage('img/sprites_filtered.png'), loadLevel('1')])
             balls.forEach((ball) => {
                 ball.draw(context);
                 ball.update(deltaTime / 1000);
+            });
+            hooks.forEach((hook) => {
+                hook.draw(context);
+                hook.update(deltaTime / 1000);
             });
             lastTime = time;
 
