@@ -48,11 +48,11 @@ class Hook extends Object2D {
         // o marcarlo para que quede enganchado si es de tipo chain (reset de size 0 y position altura 0)
         if (this.size.y >= Settings.SCREEN_HEIGHT){
             if (this.hook_type === HookType.rope){
-                to_kill = true;
+                to_kill = true; //this.to_kill
             } else if (this.hook_type === HookType.chain) {
-                // this.size.y = 0;
-                this.position.x = 0;
+                this.size.y = Settings.SCREEN_HEIGHT;
                 this.position.y = 0;
+                this.expand = false;
             }
         }
     }

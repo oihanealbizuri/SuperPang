@@ -45,6 +45,6 @@ export function loadHookManager(image, hooks) {
     let hookManager = function (x, y) {
         let position = new Vec2D(x, y);
         hooks.push(new Hook(0, position, 0, image));
-    }
+    };
     return hookManager;
 }
