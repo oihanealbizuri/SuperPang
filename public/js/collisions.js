@@ -1,20 +1,37 @@
 import {Vec2D} from "./math.js";
+import Settings from "./Settings.js";
+import {Ball} from "./Ball.js";
 
 export default class CollisionManager {
 
-    constructor(hooksArray, ballsArray) {
-        this.hooks = hooksArray;
-        this.balls = ballsArray;
+    constructor(hooksSet, ballsSet) {
+        this.hooks = hooksSet;
+        this.balls = ballsSet;
     }
 
-    checkCollisions(){
+    check_collisions(){
         this.hooks.forEach((hook) => {
             this.balls.forEach((ball) => {
                 if (ball_to_box(ball, hook)) {
                     console.log('pang!');
+                    this.balls.delete(ball);
+                    this.hooks.delete(hook);
+                    this.split_ball(ball);
                 }
-            })
+            });
+            if(hook.to_kill){
+                this.hooks.delete(hook);
+            }
         })
+    }
+
+    split_ball(ball){
+        if (ball.radius > Settings.MIN_BALL_RADIUS){
+            let force1 = new Vec2D(ball.force.x, -3);
+            let force2 = new Vec2D(-ball.force.x, -3);
+            this.balls.add(new Ball(ball.radius/2, new Vec2D(ball.position.x + ball.radius / 2, ball.position.y), force1));
+            this.balls.add(new Ball(ball.radius/2, new Vec2D(ball.position.x - ball.radius / 2, ball.position.y), force2));
+        }
     }
 }
 

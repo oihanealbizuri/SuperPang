@@ -15,7 +15,7 @@ Promise.all([loadImage('img/sprites_filtered.png'), loadImage('img/hookRope.png'
 
         const buster = loadBuster(image, levelSpec.player);
         const balls = loadBalls(levelSpec.balls);
-        const hooks = [];
+        const hooks = new Set();
         const hookManager = loadHookManager(hookImage, hooks);
         buster.setHookManager(hookManager);
 
@@ -38,7 +38,7 @@ Promise.all([loadImage('img/sprites_filtered.png'), loadImage('img/hookRope.png'
             lastTime = time;
 
             let cm = new CollisionManager(hooks, balls);
-            cm.checkCollisions();
+            cm.check_collisions();
 
             requestAnimationFrame(update);
         }
