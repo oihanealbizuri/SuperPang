@@ -10,7 +10,7 @@ export class Vec2D {
 
     add(other) {
         // si other es una instancia de Vec2D, añadir other a this como vector
-        if (other instanceof Vec2D){
+        if (other instanceof Vec2D) {
             this.x += other.x;
             this.y += other.y;
         }
@@ -26,10 +26,6 @@ export class Vec2D {
     _mul(other) {
         // devolver un nuevo vector igual a
         // this multiplicado por el escalar other
-        // let new_vec = new Vec2D(0, 0);
-        // new_vec.x = this.x * other;
-        // new_vec.y = this.y * other;
-        // return new_vec;
         return new Vec2D(this.x * other, this.y * other);
     }
 

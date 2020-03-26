@@ -65,17 +65,17 @@ export default class Player extends Object2D {
         // position = 0,y
         // sino, si buster se sale por la derecha
         // position =  lo más a la derecha sin salirse , y
-        if (this.position.x < 0){
-            this.position.x = 0;
-        } else if (this.position.x > Settings.SCREEN_WIDTH - this.width) {
-            this.position.x = Settings.SCREEN_WIDTH - this.width;
+        if (this.position.x < Settings.MARGIN){
+            this.position.x = Settings.MARGIN;
+        } else if (this.position.x > Settings.SCREEN_WIDTH - this.width - Settings.MARGIN) {
+            this.position.x = Settings.SCREEN_WIDTH - this.width - Settings.MARGIN;
         }
 
 
         // si buster se sale por la parte inferior de la pantalla
         // position = x, lo más abajo sin salirse
-        if (this.position.y > Settings.SCREEN_HEIGHT - this.height){
-            this.position.y = Settings.SCREEN_HEIGHT - this.height;
+        if (this.position.y > Settings.SCREEN_HEIGHT - this.height - Settings.MARGIN){
+            this.position.y = Settings.SCREEN_HEIGHT - this.height - Settings.MARGIN;
         }
 
 
