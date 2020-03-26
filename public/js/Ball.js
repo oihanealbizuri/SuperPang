@@ -14,23 +14,53 @@ class Ball extends Object2D {
 
     update(time_passed) {
 
-        this.force.add(new Vec2D(0, Settings.GRAVITY * time_passed));
-        this.position.add(this.force._mul(time_passed));
+        // OLD CODE
+        // this.force.add(new Vec2D(0, Settings.GRAVITY * time_passed));
+        // this.position.add(this.force._mul(time_passed));
+        //
+        // if (this.x < this.radius + Settings.MARGIN || this.x > Settings.SCREEN_WIDTH - this.radius - Settings.MARGIN) {
+        //     this.force = new Vec2D(-this.force.x, this.force.y);
+        //
+        //     if (this.x < this.radius + Settings.MARGIN)
+        //         this.position = new Vec2D(2 * (this.radius + Settings.MARGIN) - this.x, this.y);
+        //     else
+        //         this.position = new Vec2D(2 * (Settings.SCREEN_WIDTH - this.radius - Settings.MARGIN) - this.x, this.y);
+        // }
+        // if (this.y > Settings.SCREEN_HEIGHT - this.radius - Settings.MARGIN) {
+        //     this.position = new Vec2D(this.x, 2 * (Settings.SCREEN_HEIGHT - this.radius - Settings.MARGIN) - this.y);
+        //     this.force = new Vec2D(this.force.x, -(((this.y - this.max_height) * 2 * Settings.GRAVITY) ** .5));
+        // }
+        //
+        // this.falling = this.force.y > 0;
 
-        if (this.x < this.radius || this.x > Settings.SCREEN_WIDTH - this.radius) {
-            this.force = new Vec2D(-this.force.x, this.force.y);
-
-            if (this.x < this.radius)
-                this.position = new Vec2D(2 * this.radius - this.x, this.y);
-            else
-                this.position = new Vec2D(2 * (Settings.SCREEN_WIDTH - this.radius) - this.x, this.y);
+        // NEW CODE
+        if (this.x + this.radius >= Settings.SCREEN_WIDTH - Settings.MARGIN) { // derecha
+            this.force.x = -this.force.x * Settings.DAMPING;
+            this.position.x = Settings.SCREEN_WIDTH - this.radius - Settings.MARGIN;
+        } else if (this.x - this.radius <= Settings.MARGIN) { // izquierda
+            // this.force.x = -this.force.x * Settings.DAMPING;
+            this.force.x = -this.force.x * Settings.DAMPING;
+            this.position.x = this.radius + Settings.MARGIN;
         }
-        if (this.y > Settings.SCREEN_HEIGHT - this.radius) {
-            this.position = new Vec2D(this.x, 2 * (Settings.SCREEN_HEIGHT - this.radius) - this.y);
-            this.force = new Vec2D(this.force.x, -(((this.y - this.max_height) * 2 * Settings.GRAVITY) ** .5));
+
+        if (this.y + this.radius >= Settings.SCREEN_HEIGHT - Settings.MARGIN) { // abajo
+            // vy = -vy * Settings.DAMPING; <- y vector added in force
+            this.position.y = Settings.SCREEN_HEIGHT - this.radius - Settings.MARGIN;
+            // this.force = new Vec2D(this.force * Settings.TRACTION, -this.force.y * Settings.DAMPING);
+            this.force.x = this.force.x * Settings.TRACTION;
+            this.force.y = -this.force.y * Settings.DAMPING;
+        } else if (this.y - this.radius <= Settings.MARGIN) { // arriba
+            // vy = -vy * Settings.DAMPING; <- y vector added in force
+            this.position.y = this.radius + Settings.MARGIN;
+            // this.force.y = -this.force.y * Settings.DAMPING;
+            this.force.y = -this.force.y * Settings.DAMPING;
         }
 
+        // vy += Settings.GRAVITY; // <- y vector again
         this.falling = this.force.y > 0;
+        this.force.y += Settings.GRAVITY;
+        this.position.x += this.force.x;
+        this.position.y += this.force.y;
     }
 
     draw(ctx) {
@@ -46,11 +76,11 @@ class Ball extends Object2D {
         ctx.stroke();
     }
 
-    get pos(){
+    get pos() {
         return this.position;
     }
 
-    get vel(){
+    get vel() {
         return this.force;
     }
 }
