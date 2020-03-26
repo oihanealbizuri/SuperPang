@@ -1,7 +1,7 @@
 import {Object2D, Vec2D} from "./math.js";
 import Settings from "./Settings.js";
 
-const frames = ['buster', 'buster-1', 'buster-2', 'buster-3'];
+const frames = ['buster-1', 'buster-2', 'buster-3'];
 
 export default class Player extends Object2D {
 
@@ -11,7 +11,7 @@ export default class Player extends Object2D {
             const frameName = frames[frameIndex];
             return frameName;
         }
-        return 'buster';
+        return 'idle';
     }
 
 

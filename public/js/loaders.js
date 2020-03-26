@@ -31,9 +31,9 @@ export function loadImage(url) {
 
 export function loadBuster(image, playerSpec) {
     const spriteSheet = new SpriteSheet(image, 32, 32);
-    spriteSheet.define('buster', 1, 0);
-    spriteSheet.define('buster-1', 2, 0);
-    spriteSheet.define('buster-2', 3, 0);
+    spriteSheet.define('idle', 4, 0);
+    spriteSheet.define('buster-1', 1, 0);
+    spriteSheet.define('buster-2', 2, 0);
     spriteSheet.define('buster-3', 0, 0);
 
     const pos = new Vec2D(playerSpec.pos[0], playerSpec.pos[1]);
