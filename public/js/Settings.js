@@ -8,8 +8,8 @@ export default class Settings {
     static MIN_BALL_RADIUS = 5;
     static MAX_HOOKS = 3;
     static MARGIN = 12;
-    static DAMPING = 0.9;
-    static TRACTION = 0.8;
+    static DAMPING = 0.9; //0.9
+    static TRACTION = 1; //0.8
 
     //static HOOK_DURATION = 0;
 
