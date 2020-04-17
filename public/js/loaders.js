@@ -9,12 +9,13 @@ export function loadLevel(currentLevel) {
     return fetch(`levels/${currentLevel}.json`).then(r => r.json());
 }
 
-export function loadBalls(balls) {
+export function loadBalls(balls, ballFactory) {
     let ballsList = new Set();
     balls.forEach(ball => {
         let position = new Vec2D(ball.pos[0], ball.pos[1]);
         let force = new Vec2D(ball.force[0], ball.force[1]);
-        ballsList.add(new Ball(ball.radius, position, force));
+        // ballsList.add(new Ball(ball.radius, position, force));
+        ballsList.add(ballFactory(ball.radius, position, force, ball.color));
     });
     return ballsList;
 }
@@ -61,5 +62,25 @@ export function loadBackground(backgrounds) {
     context.drawImage(backgrounds, 0, 0, buffer.width, buffer.height, 0, 0, buffer.width, buffer.height,);
     return function (ctx) {
         ctx.drawImage(buffer, 0, 0, buffer.width, buffer.height, 0, 0, Settings.SCREEN_WIDTH, Settings.SCREEN_HEIGHT);
+    }
+}
+
+export function createBallFactory(ballsImage) {
+    const spriteSheet = new SpriteSheet(ballsImage, 48, 40);
+    spriteSheet.define('red40', 0, 0);
+    spriteSheet.define('blue40', 1, 0);
+    spriteSheet.define('green40', 2, 0);
+    spriteSheet.define('red20', 0, 0);
+    spriteSheet.define('blue20', 1, 0);
+    spriteSheet.define('green20', 2, 0);
+    spriteSheet.define('red10', 0, 0);
+    spriteSheet.define('blue10', 1, 0);
+    spriteSheet.define('green10', 2, 0);
+    spriteSheet.define('red5', 0, 0);
+    spriteSheet.define('blue5', 1, 0);
+    spriteSheet.define('green5', 2, 0);
+    return function (radius, pos, force, color) {
+        let sprite = `${color}${radius}`;
+        return new Ball(radius, pos, force, spriteSheet.get(sprite), color);
     }
 }

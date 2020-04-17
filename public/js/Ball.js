@@ -3,13 +3,15 @@ import Settings from "./Settings.js";
 
 class Ball extends Object2D {
 
-    constructor(radius, position, force) {
+    constructor(radius, position, force, sprite, color) {
         super(new Vec2D(radius * 2, radius * 2), position);
         this.radius = radius;
         this.position = position;
         this.force = force;
         this.falling = this.force.y >= 0;
         this.max_height = Settings.SCREEN_HEIGHT - 150 - radius * 4;
+        this.color = color;
+        this.sprite = sprite;
     }
 
     update(time_passed) {
@@ -66,14 +68,19 @@ class Ball extends Object2D {
     draw(ctx) {
         // Añade el método draw a la clase Ball para que se pinte a sí misma
         // en el contexto que se le pasa como parámetro
-        // ctx.drawImage(this, this.position.x, this.position.y);
-        ctx.beginPath();
-        ctx.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI, false);
-        ctx.fillStyle = "#FF0000";
-        ctx.fill();
-        ctx.lineWidth = 5;
-        ctx.strokeStyle = "#000000";
-        ctx.stroke();
+        // OLD
+        // ctx.beginPath();
+        // ctx.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI, false);
+        // ctx.fillStyle = "#FF0000";
+        // ctx.fill();
+        // ctx.lineWidth = 5;
+        // ctx.strokeStyle = "#000000";
+        // ctx.stroke();
+
+        // NEW
+        // ctx.drawImage(this.sprite, this.position.x - this.radius, this.position.y - this.radius);
+        ctx.drawImage(this.sprite, this.position.x - this.radius, this.position.y - this.radius, this.radius*2, this.radius*2);
+
     }
 
     get pos() {

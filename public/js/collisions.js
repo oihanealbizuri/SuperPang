@@ -4,9 +4,10 @@ import {Ball} from "./Ball.js";
 
 export default class CollisionManager {
 
-    constructor(hooksSet, ballsSet) {
+    constructor(hooksSet, ballsSet, ballFactory) {
         this.hooks = hooksSet;
         this.balls = ballsSet;
+        this.ballFactory = ballFactory;
     }
 
     check_collisions(){
@@ -29,8 +30,8 @@ export default class CollisionManager {
         if (ball.radius > Settings.MIN_BALL_RADIUS){
             let force1 = new Vec2D(ball.force.x, -3);
             let force2 = new Vec2D(-ball.force.x, -3);
-            this.balls.add(new Ball(ball.radius/2, new Vec2D(ball.position.x + ball.radius / 2, ball.position.y), force1));
-            this.balls.add(new Ball(ball.radius/2, new Vec2D(ball.position.x - ball.radius / 2, ball.position.y), force2));
+            this.balls.add(this.ballFactory(ball.radius/2, new Vec2D(ball.position.x + ball.radius / 2, ball.position.y), force1, ball.color));
+            this.balls.add(this.ballFactory(ball.radius/2, new Vec2D(ball.position.x - ball.radius / 2, ball.position.y), force2, ball.color));
         }
     }
 }
