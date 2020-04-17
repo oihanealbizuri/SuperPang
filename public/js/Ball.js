@@ -51,6 +51,9 @@ class Ball extends Object2D {
             // this.force = new Vec2D(this.force * Settings.TRACTION, -this.force.y * Settings.DAMPING);
             this.force.x = this.force.x * Settings.TRACTION;
             this.force.y = -this.force.y * Settings.DAMPING;
+            if (Math.abs(this.force.y) < 5){
+                this.force.y = -5;
+            }
         } else if (this.y - this.radius <= Settings.MARGIN) { // arriba
             // vy = -vy * Settings.DAMPING; <- y vector added in force
             this.position.y = this.radius + Settings.MARGIN;
@@ -80,6 +83,9 @@ class Ball extends Object2D {
         // NEW
         // ctx.drawImage(this.sprite, this.position.x - this.radius, this.position.y - this.radius);
         ctx.drawImage(this.sprite, this.position.x - this.radius, this.position.y - this.radius, this.radius*2, this.radius*2);
+        ctx.font = "15px Arial";
+        ctx.fillStyle = "white";
+        ctx.fillText(Math.abs(this.force.y), 120, 50);
 
     }
 
