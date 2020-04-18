@@ -38,7 +38,8 @@ export function setupKeyboard(buster) {
     input.addMapping('KeyK', keyState => {
         if (keyState) {
             console.log('KeyK');
-            buster.killThemAll()
+            // Super-arma deshabilitada
+            // buster.killThemAll()
         }
     });
     return input;
