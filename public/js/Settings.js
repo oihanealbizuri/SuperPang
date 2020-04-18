@@ -6,7 +6,7 @@ export default class Settings {
     static PLAYER_SPEED = 200;
     static HOOK_SPEED = 80;
     static MIN_BALL_RADIUS = 5;
-    static MAX_HOOKS = 3;
+    static MAX_HOOKS = 100; //3
     static MARGIN = 12;
     static DAMPING = 0.9; //0.9
     static TRACTION = 1; //0.8

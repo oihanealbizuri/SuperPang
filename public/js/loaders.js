@@ -9,12 +9,40 @@ export function loadLevel(currentLevel) {
     return fetch(`levels/${currentLevel}.json`).then(r => r.json());
 }
 
-export function loadBalls(balls, ballFactory) {
+export function startLevel(level, balls, ballFactory, buster) {
+
+       return loadLevel(level)
+            .then(levelSpec => Promise.all([
+                levelSpec,
+                loadBalls(levelSpec.balls, ballFactory),
+                // loadBalls(balls, ballFactory),
+            ]))
+            .then(([levelSpec, ballsList]) => {
+                buster.setPos(levelSpec.player.pos);
+                balls = ballsList;
+                return balls;
+            })
+}
+
+export function loadAllBalls() { // cargar todas las imagenes y devolverlas en una
+    // let ballsList;
+    // Promise.all([
+    //     loadImage('img/balls40.png'),
+    //     loadImage('img/balls20.png'),
+    //     loadImage('img/balls10.png'),
+    //     loadImage('img/balls5.png')])
+    //     .then([b40, b20, b10, b5].forEach(img => {
+    //             loadBalls(img, )
+    //         })
+    //     )
+    return loadImage('img/balls20.png');
+}
+
+export function loadBalls(balls, ballFactory) { //json de balls + ballFactory
     let ballsList = new Set();
     balls.forEach(ball => {
         let position = new Vec2D(ball.pos[0], ball.pos[1]);
         let force = new Vec2D(ball.force[0], ball.force[1]);
-        // ballsList.add(new Ball(ball.radius, position, force));
         ballsList.add(ballFactory(ball.radius, position, force, ball.color));
     });
     return ballsList;
@@ -30,14 +58,17 @@ export function loadImage(url) {
     })
 }
 
-export function loadBuster(image, playerSpec) {
+// export function loadBuster(image, playerSpec) {
+export function loadBuster(image) {
     const spriteSheet = new SpriteSheet(image, 32, 32);
     spriteSheet.define('idle', 4, 0);
     spriteSheet.define('buster-1', 1, 0);
     spriteSheet.define('buster-2', 2, 0);
     spriteSheet.define('buster-3', 0, 0);
 
-    const pos = new Vec2D(playerSpec.pos[0], playerSpec.pos[1]);
+    // const pos = new Vec2D(playerSpec.pos[0], playerSpec.pos[1]);
+    // crear siempre en posición fija y luego cambiar
+    const pos = new Vec2D(184, 253);
     const size = new Vec2D(32, 32);
 
     return new Player(size, pos, spriteSheet);
@@ -53,13 +84,13 @@ export function loadHookManager(image, hooks) {
     return hookManager;
 }
 
-export function loadBackground(backgrounds) {
+export function loadBackground(backgrounds, level) {
     const buffer = document.createElement('canvas');
     buffer.width = 256;
     buffer.height = 192;
     // recortar super-sprite y dejarlo preparado en un buffer
     const context = buffer.getContext("2d");
-    context.drawImage(backgrounds, 0, 0, buffer.width, buffer.height, 0, 0, buffer.width, buffer.height,);
+    context.drawImage(backgrounds, (level - 1)*buffer.width, 0, buffer.width, buffer.height, 0, 0, buffer.width, buffer.height,);
     return function (ctx) {
         ctx.drawImage(buffer, 0, 0, buffer.width, buffer.height, 0, 0, Settings.SCREEN_WIDTH, Settings.SCREEN_HEIGHT);
     }

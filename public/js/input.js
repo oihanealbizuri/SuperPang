@@ -35,6 +35,12 @@ export function setupKeyboard(buster) {
             buster.shoot()
         }
     });
+    input.addMapping('KeyK', keyState => {
+        if (keyState) {
+            console.log('KeyK');
+            buster.killThemAll()
+        }
+    });
     return input;
 
 }

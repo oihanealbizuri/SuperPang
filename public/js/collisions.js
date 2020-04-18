@@ -2,7 +2,7 @@ import {Vec2D} from "./math.js";
 import Settings from "./Settings.js";
 import {Ball} from "./Ball.js";
 
-export default class CollisionManager {
+export class CollisionManager {
 
     constructor(hooksSet, ballsSet, ballFactory) {
         this.hooks = hooksSet;
