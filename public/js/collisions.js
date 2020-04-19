@@ -1,13 +1,16 @@
 import {Vec2D} from "./math.js";
 import Settings from "./Settings.js";
-import {Ball} from "./Ball.js";
+import {HookType} from "./Hook.js";
 
-export class CollisionManager {
+export class CollisionManager { // hooks, balls, ballFactory, buster, bonusSet, bonusFactory
 
-    constructor(hooksSet, ballsSet, ballFactory) {
+    constructor(hooksSet, ballsSet, ballFactory, buster, bonusSet, bonusFactory) {
         this.hooks = hooksSet;
         this.balls = ballsSet;
         this.ballFactory = ballFactory;
+        this.buster = buster;
+        this.bonuses = bonusSet;
+        this.bonusFactory = bonusFactory;
     }
 
     check_collisions(){
@@ -23,6 +26,16 @@ export class CollisionManager {
             if(hook.to_kill){
                 this.hooks.delete(hook);
             }
+        });
+        this.bonuses.forEach((bonus) => {
+            if (box_to_box(bonus, this.buster)){
+                console.log('bonus!');
+                this.bonuses.delete(bonus);
+                this.activate_bonus();
+            }
+            if (bonus.to_kill) {
+                this.bonuses.delete(bonus);
+            }
         })
     }
 
@@ -32,8 +45,34 @@ export class CollisionManager {
             let force2 = new Vec2D(-ball.force.x, -3);
             this.balls.add(this.ballFactory(ball.radius/2, new Vec2D(ball.position.x + ball.radius / 2, ball.position.y), force1, ball.color));
             this.balls.add(this.ballFactory(ball.radius/2, new Vec2D(ball.position.x - ball.radius / 2, ball.position.y), force2, ball.color));
+            this.spawn_bonus(ball.position);
         }
     }
+
+    spawn_bonus(position) {
+        if (Math.random() < Settings.BONUS_SPAWN_CHANCE) {
+            let pos = new Vec2D(position.x, position.y);
+            this.bonuses.add(this.bonusFactory(pos));
+        }
+    }
+
+    activate_bonus(){
+        //tipo de hook > HookType.chain
+        this.hooks.forEach((hook) => {
+            hook.hook_type = HookType.chain;
+        })
+    }
+}
+
+function box_to_box(bonus, player) {
+    // return !!ball_to_box(bonus, player);
+    var rect_bonus = {x: bonus.position.x, y: bonus.position.y, width: Settings.BONUS_SIZE, height: Settings.BONUS_SIZE}
+    var rect_player = {x: player.position.x, y: player.position.y, width: 32, height: 32}
+
+    return rect_bonus.x < rect_player.x + rect_player.width &&
+        rect_bonus.x + rect_bonus.width > rect_player.x &&
+        rect_bonus.y < rect_player.y + rect_player.height &&
+        rect_bonus.height + rect_bonus.y > rect_player.y;
 }
 
 function calc_angle(point){

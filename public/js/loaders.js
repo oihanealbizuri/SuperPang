@@ -4,6 +4,7 @@ import Player from "./Player.js";
 import {Ball} from "./Ball.js";
 import {Hook} from "./Hook.js";
 import Settings from "./Settings.js";
+import {Bonus, BonusType} from "./Bonus.js";
 
 export function loadLevel(currentLevel) {
     return fetch(`levels/${currentLevel}.json`).then(r => r.json());
@@ -58,7 +59,6 @@ export function loadImage(url) {
     })
 }
 
-// export function loadBuster(image, playerSpec) {
 export function loadBuster(image) {
     const spriteSheet = new SpriteSheet(image, 32, 32);
     spriteSheet.define('idle', 4, 0);
@@ -113,5 +113,23 @@ export function createBallFactory(ballsImage) {
     return function (radius, pos, force, color) {
         let sprite = `${color}${radius}`;
         return new Ball(radius, pos, force, spriteSheet.get(sprite), color);
+    }
+}
+
+export function loadBonusFactory(bonusImage) {
+    const spriteSheet = new SpriteSheet(bonusImage, 20, 20);
+    spriteSheet.define('bonus-1', 0, 0);
+    spriteSheet.define('bonus-2', 1, 0);
+    spriteSheet.define('bonus-3', 2, 0);
+    spriteSheet.define('bonus-4', 3, 0);
+    spriteSheet.define('bonus-5', 4, 0);
+    spriteSheet.define('bonus-6', 5, 0);
+    spriteSheet.define('bonus-7', 6, 0);
+    spriteSheet.define('bonus-8', 7, 0);
+    spriteSheet.define('bonus-9', 8, 0);
+    return function (position) {
+        let type = BonusType.chain_hook;
+        let sprite = 'bonus-1'; // gancho con anclaje
+        return new Bonus(position, type, spriteSheet.get(sprite));
     }
 }

@@ -1,6 +1,6 @@
 import {
     createBallFactory, loadAllBalls,
-    loadBackground,
+    loadBackground, loadBonusFactory,
     loadBuster,
     loadHookManager,
     loadImage,
@@ -20,17 +20,20 @@ Promise.all([
     loadImage('img/player.png'),
     loadImage('img/hookRope.png'),
     loadImage('img/backgrounds.png'),
-    loadAllBalls()])
-    .then(([playerImage, hookImage, backgrounds, ballsImage]) => {
+    loadAllBalls(),
+    loadImage('img/bonus.png')])
+    .then(([playerImage, hookImage, backgrounds, ballsImage, bonusImage]) => {
         let level = 1;
         let drawBackground;
-        const ballFactory = createBallFactory(ballsImage);
         let balls = new Set();
+        const ballFactory = createBallFactory(ballsImage);
         const hooks = new Set();
         const hookManager = loadHookManager(hookImage, hooks);
+        const bonusSet = new Set();
+        const bonusFactory = loadBonusFactory(bonusImage);
         const buster = loadBuster(playerImage);
         buster.setHookManager(hookManager);
-        const collisionManager = new CollisionManager(hooks, balls, ballFactory, buster);
+        const collisionManager = new CollisionManager(hooks, balls, ballFactory, buster, bonusSet, bonusFactory);
 
         let deltaTime = 0;
         let lastTime = 0;
@@ -47,10 +50,14 @@ Promise.all([
             hooks.forEach(hook => {
                     hook.draw(context);
                     hook.update(deltaTime / 1000);
-                }
-            );
+            });
+            bonusSet.forEach(bonus => {
+                bonus.draw(context);
+                bonus.update(deltaTime / 1000);
+            });
             collisionManager.balls = balls;
             collisionManager.hooks = hooks;
+            collisionManager.bonuses = bonusSet;
             collisionManager.check_collisions();
 
             if (balls.size === 0) {
