@@ -9,11 +9,14 @@ import {
 import Settings from "./Settings.js";
 import {setupKeyboard} from "./input.js";
 import {CollisionManager} from "./collisions.js";
+import {MusicController} from "./MusicController.js";
 
 const canvas = document.getElementById('screen');
 const context = canvas.getContext('2d');
 Settings.SCREEN_HEIGHT = canvas.height;
 Settings.SCREEN_WIDTH = canvas.width;
+
+const music = new MusicController();
 
 
 Promise.all([

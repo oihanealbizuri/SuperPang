@@ -5,8 +5,13 @@ import {Ball} from "./Ball.js";
 import {Hook} from "./Hook.js";
 import Settings from "./Settings.js";
 import {Bonus, BonusType} from "./Bonus.js";
+import {MusicController} from "./MusicController.js";
 
 export function loadLevel(currentLevel) {
+    if (currentLevel > 1) {
+        var music = new MusicController();
+        music.play('win');
+    }
     return fetch(`levels/${currentLevel}.json`).then(r => r.json());
 }
 

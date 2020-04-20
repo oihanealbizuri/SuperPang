@@ -2,6 +2,7 @@ import {Object2D, Vec2D} from "./math.js";
 import Settings from "./Settings.js";
 import {Hook} from "./Hook.js";
 import {loadImage} from "./loaders.js";
+import {MusicController} from "./MusicController.js";
 
 const frames = ['buster-1', 'buster-2', 'buster-3'];
 
@@ -23,6 +24,7 @@ export default class Player extends Object2D {
         this.spriteSheet = spriteSheet;
         this.direction = new Vec2D(0, 0);
         this.distance = 0;
+        this.musicController = new MusicController();
     }
 
     setHookManager(hookManager) {
@@ -31,6 +33,7 @@ export default class Player extends Object2D {
 
     shoot() {
         this.hookManager(this.position.x + this.size.x / 2, this.position.y + this.size.y / 2);
+        this.musicController.play('shoot');
     }
 
     killThemAll() {

@@ -1,6 +1,7 @@
 import {Vec2D} from "./math.js";
 import Settings from "./Settings.js";
 import {HookType} from "./Hook.js";
+import {MusicController} from "./MusicController.js";
 
 export class CollisionManager { // hooks, balls, ballFactory, buster, bonusSet, bonusFactory
 
@@ -11,6 +12,7 @@ export class CollisionManager { // hooks, balls, ballFactory, buster, bonusSet, 
         this.buster = buster;
         this.bonuses = bonusSet;
         this.bonusFactory = bonusFactory;
+        this.musicController = new MusicController();
     }
 
     check_collisions(){
@@ -18,6 +20,7 @@ export class CollisionManager { // hooks, balls, ballFactory, buster, bonusSet, 
             this.balls.forEach((ball) => {
                 if (ball_to_box(ball, hook)) {
                     console.log('pang!');
+                    this.musicController.play('pop');
                     this.balls.delete(ball);
                     this.hooks.delete(hook);
                     this.split_ball(ball);
@@ -30,6 +33,7 @@ export class CollisionManager { // hooks, balls, ballFactory, buster, bonusSet, 
         this.bonuses.forEach((bonus) => {
             if (box_to_box(bonus, this.buster)){
                 console.log('bonus!');
+                this.musicController.play('bonus');
                 this.bonuses.delete(bonus);
                 this.activate_bonus();
             }
@@ -61,6 +65,7 @@ export class CollisionManager { // hooks, balls, ballFactory, buster, bonusSet, 
         this.hooks.forEach((hook) => {
             hook.hook_type = HookType.chain;
         })
+        // this.buster.hookManager.
     }
 }
 
