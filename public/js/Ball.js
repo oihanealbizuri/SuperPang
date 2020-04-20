@@ -83,9 +83,9 @@ class Ball extends Object2D {
         // NEW
         // ctx.drawImage(this.sprite, this.position.x - this.radius, this.position.y - this.radius);
         ctx.drawImage(this.sprite, this.position.x - this.radius, this.position.y - this.radius, this.radius*2, this.radius*2);
-        ctx.font = "15px Arial";
-        ctx.fillStyle = "white";
-        ctx.fillText(Math.abs(this.force.y), 120, 50);
+        // ctx.font = "15px Arial";
+        // ctx.fillStyle = "white";
+        // ctx.fillText(Math.abs(this.force.y), 120, 50);
 
     }
 
