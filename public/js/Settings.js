@@ -16,4 +16,6 @@ export default class Settings {
     static BONUS_SIZE = 25; // tamaño del Bonus
     static BONUS_SPAWN_CHANCE = 0.15; // probabilidad de obtener un bonus al romper una bola
 
+    static LIVES = 3;
+
 }

@@ -25,6 +25,7 @@ export default class Player extends Object2D {
         this.direction = new Vec2D(0, 0);
         this.distance = 0;
         this.musicController = new MusicController();
+        this.lives = Settings.LIVES;
     }
 
     setHookManager(hookManager) {
@@ -40,6 +41,11 @@ export default class Player extends Object2D {
         for (var i = 0; i < Settings.SCREEN_WIDTH; i += 5) {
             this.hookManager(i, this.position.y + this.size.y/2);
         }
+    }
+
+    oneLiveLess() {
+        this.lives -= 1;
+
     }
 
 
@@ -102,6 +108,10 @@ export default class Player extends Object2D {
     draw(context) {
         // pintar this.sprite en el contexto (en posicion x,y)
         context.drawImage(this.spriteSheet.get(this.routeFrame(), this.direction.x), this.position.x, this.position.y);
+        context.drawImage(this.spriteSheet.get('lives'), 332, 15, 20, 20);
+        context.font = "bold 15px Arial";
+        context.fillStyle = "white";
+        context.fillText(" X " + this.lives, 352, 30);
     }
 
     setPos(pos) { //pos = [x,y]

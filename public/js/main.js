@@ -3,7 +3,7 @@ import {
     loadBackground, loadBonusFactory,
     loadBuster,
     loadHookManager,
-    loadImage,
+    loadImage, loadLevel,
     startLevel
 } from "./loaders.js";
 import Settings from "./Settings.js";
@@ -27,6 +27,7 @@ Promise.all([
     loadImage('img/bonus.png')])
     .then(([playerImage, hookImage, backgrounds, ballsImage, bonusImage]) => {
         let level = 1;
+        let originalLives = Settings.LIVES;
         let drawBackground;
         let balls = new Set();
         const ballFactory = createBallFactory(ballsImage);
@@ -41,7 +42,13 @@ Promise.all([
         let deltaTime = 0;
         let lastTime = 0;
 
+        music.play('main');
+
         function update(time) {
+            if (originalLives === 0) {
+                music.soundtrack.unload();
+                return;
+            }
             deltaTime = time - lastTime;
             drawBackground(context);
             buster.draw(context);
@@ -69,6 +76,20 @@ Promise.all([
                     balls = r;
                     drawBackground = loadBackground(backgrounds, level);
                 });
+            }
+
+            if (buster.lives !== originalLives) {
+                hooks.clear();
+                startLevel(level, balls, ballFactory, buster).then(r => {
+                    balls = r;
+                    drawBackground = loadBackground(backgrounds, level);
+                });
+                originalLives = buster.lives;
+                music.play('pang');
+                if (originalLives === 0){
+                    music.play('end');
+                    context === null;
+                }
             }
 
             lastTime = time;

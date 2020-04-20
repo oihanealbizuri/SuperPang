@@ -9,7 +9,6 @@ export class MusicController {
         this.shoot_track = new Howl({ src: ['audio/shoot.mp3'] });
         this.start_track = new Howl({ src: ['audio/start.mp3'] });
         this.win = new Howl({ src: ['audio/win.mp3'], sprite: {cut: [0, 1000]} });
-        this.play('main');
     }
 
     play(event_name) {

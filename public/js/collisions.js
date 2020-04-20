@@ -30,6 +30,12 @@ export class CollisionManager { // hooks, balls, ballFactory, buster, bonusSet, 
                 this.hooks.delete(hook);
             }
         });
+        this.balls.forEach((ball) => {
+            if (ball_to_box(ball, this.buster)) {
+                console.log('BUSTER / BALL');
+                this.buster.oneLiveLess();
+            }
+        });
         this.bonuses.forEach((bonus) => {
             if (box_to_box(bonus, this.buster)){
                 console.log('bonus!');

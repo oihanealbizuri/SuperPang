@@ -70,6 +70,7 @@ export function loadBuster(image) {
     spriteSheet.define('buster-1', 1, 0);
     spriteSheet.define('buster-2', 2, 0);
     spriteSheet.define('buster-3', 0, 0);
+    spriteSheet.define('lives', 8, 0);
 
     // const pos = new Vec2D(playerSpec.pos[0], playerSpec.pos[1]);
     // crear siempre en posición fija y luego cambiar
