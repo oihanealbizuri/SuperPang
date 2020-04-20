@@ -135,7 +135,7 @@ export function loadBonusFactory(bonusImage) {
     spriteSheet.define('bonus-9', 8, 0);
     return function (position) {
         let type = BonusType.chain_hook;
-        let sprite = 'bonus-1'; // gancho con anclaje
+        let sprite = 'bonus-3'; // gancho con anclaje
         return new Bonus(position, type, spriteSheet.get(sprite));
     }
 }

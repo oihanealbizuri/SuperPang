@@ -11,7 +11,7 @@ export default class Settings {
     static DAMPING = 0.9; //0.9
     static TRACTION = 1; //0.8
 
-    //static HOOK_DURATION = 0;
+    static HOOK_DURATION = 3;
     static BONUS_DURATION = 5; // segundos que permanecerá en pantalla
     static BONUS_SIZE = 25; // tamaño del Bonus
     static BONUS_SPAWN_CHANCE = 0.15; // probabilidad de obtener un bonus al romper una bola

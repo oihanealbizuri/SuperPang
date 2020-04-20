@@ -88,7 +88,6 @@ Promise.all([
                 music.play('pang');
                 if (originalLives === 0){
                     music.play('end');
-                    context === null;
                 }
             }
 
