@@ -22,17 +22,18 @@ const music = new MusicController();
 Promise.all([
     loadImage('img/player.png'),
     loadImage('img/hookRope.png'),
+    loadImage('img/hookChain.png'),
     loadImage('img/backgrounds.png'),
     loadAllBalls(),
     loadImage('img/bonus.png')])
-    .then(([playerImage, hookImage, backgrounds, ballsImage, bonusImage]) => {
+    .then(([playerImage, hookRopeImage, hookChainImage, backgrounds, ballsImage, bonusImage]) => {
         let level = 1;
         let originalLives = Settings.LIVES;
         let drawBackground;
         let balls = new Set();
         const ballFactory = createBallFactory(ballsImage);
         const hooks = new Set();
-        const hookManager = loadHookManager(hookImage, hooks);
+        const hookManager = loadHookManager(hookRopeImage, hookChainImage, hooks);
         const bonusSet = new Set();
         const bonusFactory = loadBonusFactory(bonusImage);
         const buster = loadBuster(playerImage);
@@ -76,6 +77,7 @@ Promise.all([
                     balls = r;
                     drawBackground = loadBackground(backgrounds, level);
                 });
+                buster.withBonus = false;
             }
 
             if (buster.lives !== originalLives) {
@@ -85,6 +87,7 @@ Promise.all([
                     drawBackground = loadBackground(backgrounds, level);
                 });
                 originalLives = buster.lives;
+                buster.withBonus = false;
                 music.play('pang');
                 if (originalLives === 0){
                     music.play('end');

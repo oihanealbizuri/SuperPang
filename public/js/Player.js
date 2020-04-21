@@ -24,6 +24,7 @@ export default class Player extends Object2D {
         this.spriteSheet = spriteSheet;
         this.direction = new Vec2D(0, 0);
         this.distance = 0;
+        this.withBonus = false;
         this.musicController = new MusicController();
         this.lives = Settings.LIVES;
     }
@@ -33,19 +34,23 @@ export default class Player extends Object2D {
     }
 
     shoot() {
-        this.hookManager(this.position.x + this.size.x / 2, this.position.y + this.size.y / 2);
+        if (this.withBonus) {
+            this.hookManager(this.position.x + this.size.x / 2, this.position.y + this.size.y / 2, 1);
+        } else {
+            this.hookManager(this.position.x + this.size.x / 2, this.position.y + this.size.y / 2, 0);
+        }
         this.musicController.play('shoot');
     }
 
     killThemAll() {
         for (var i = 0; i < Settings.SCREEN_WIDTH; i += 5) {
-            this.hookManager(i, this.position.y + this.size.y/2);
+            this.hookManager(i, this.position.y + this.size.y/2, 0);
         }
     }
 
     oneLiveLess() {
         this.lives -= 1;
-
+        this.withBonus = false;
     }
 
 

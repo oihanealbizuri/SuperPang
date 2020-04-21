@@ -80,11 +80,11 @@ export function loadBuster(image) {
     return new Player(size, pos, spriteSheet);
 }
 
-export function loadHookManager(image, hooks) {
-    let hookManager = function (x, y) {
+export function loadHookManager(imageRope, imageChain, hooks) {
+    let hookManager = function (x, y, type) {
         if (hooks.size < Settings.MAX_HOOKS) {
             let position = new Vec2D(x, y);
-            hooks.add(new Hook(0, position, 0, image));
+            hooks.add(new Hook(0, position, type, imageRope, imageChain));
         }
     };
     return hookManager;

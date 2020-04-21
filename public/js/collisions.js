@@ -70,7 +70,8 @@ export class CollisionManager { // hooks, balls, ballFactory, buster, bonusSet, 
         //tipo de hook > HookType.chain
         this.hooks.forEach((hook) => {
             hook.hook_type = HookType.chain;
-        })
+        });
+        this.buster.withBonus = true;
         // this.buster.hookManager.
     }
 }

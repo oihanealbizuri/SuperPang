@@ -9,19 +9,23 @@ let HookType = {
 
 class Hook extends Object2D {
 
-    constructor(height, position, hook_type, buffer) {
+    constructor(height, position, hook_type, bufferRope, bufferChain) {
         super(new Vec2D(6, height), position);
         this.hook_type = hook_type;
         this.expand = true;
         this.timer = Settings.HOOK_DURATION;
-        this.buffer = buffer;
-
+        this.buffer = bufferRope;
+        this.bufferChain = bufferChain;
 
     }
 
     draw(ctx){
        // pintar el hook de buffer en la posición x,y de este objeto
-        ctx.drawImage(this.buffer, this.position.x, this.position.y);
+        if (this.hook_type === HookType.rope) {
+            ctx.drawImage(this.buffer, this.position.x, this.position.y);
+        } else {
+            ctx.drawImage(this.bufferChain, this.position.x, this.position.y);
+        }
 
     }
 
