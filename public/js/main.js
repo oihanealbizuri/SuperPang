@@ -43,10 +43,12 @@ Promise.all([
         let deltaTime = 0;
         let lastTime = 0;
 
+        let maxTime = Settings.MAX_TIME;
+
         music.play('main');
 
         function update(time) {
-            if (originalLives === 0) {
+            if (originalLives === 0 || maxTime < 0) {
                 music.soundtrack.unload();
                 return;
             }
@@ -71,6 +73,15 @@ Promise.all([
             collisionManager.bonuses = bonusSet;
             collisionManager.check_collisions();
 
+            context.font = "italic small-caps bold 22px Arial";
+            context.fillStyle = "white";
+            context.strokeStyle = "black";
+            context.lineWidth = 1;
+            maxTime = maxTime - (deltaTime / 1000);
+            let num = maxTime.toFixed(2);
+            context.fillText(num.toString(), 175, 35);
+            context.strokeText(num.toString(), 175, 35);
+
             if (balls.size === 0) {
                 hooks.clear();
                 startLevel(++level, balls, ballFactory, buster).then(r => {
@@ -79,10 +90,12 @@ Promise.all([
                     drawBackground = loadBackground(backgrounds, level);
                 });
                 buster.withBonus = false;
+                maxTime = Settings.MAX_TIME;
             }
 
             if (buster.lives !== originalLives) {
                 hooks.clear();
+                bonusSet.clear();
                 startLevel(level, balls, ballFactory, buster).then(r => {
                     balls = r;
                     drawBackground = loadBackground(backgrounds, level);
@@ -90,9 +103,11 @@ Promise.all([
                 originalLives = buster.lives;
                 buster.withBonus = false;
                 music.play('pang');
-                if (originalLives === 0){
-                    music.play('end');
-                }
+                maxTime = maxTime + time / 1000;
+            }
+
+            if (originalLives === 0 || maxTime < 0){
+                music.play('end');
             }
 
             lastTime = time;
@@ -106,6 +121,7 @@ Promise.all([
             balls = r;
             buster.level = level;
             drawBackground = loadBackground(backgrounds, level);
+            maxTime = Settings.MAX_TIME;
             update(0);
         });
 

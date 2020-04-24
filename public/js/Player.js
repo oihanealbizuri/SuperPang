@@ -114,9 +114,9 @@ export default class Player extends Object2D {
         // pintar this.sprite en el contexto (en posicion x,y)
         context.drawImage(this.spriteSheet.get(this.routeFrame(), this.direction.x), this.position.x, this.position.y);
         context.drawImage(this.spriteSheet.get('lives'), 332, 15, 20, 20);
-        context.font = "bold 15px Arial";
+        context.font = "italic small-caps bold 18px Arial";
         context.fillStyle = "white";
-        context.fillText(" X " + this.lives, 352, 30);
+        context.fillText(" x " + this.lives, 352, 30);
         context.font = "italic small-caps bold 15px Arial";
         context.fillStyle = "red";
         context.fillText("Level " + this.level, 332, 50);
