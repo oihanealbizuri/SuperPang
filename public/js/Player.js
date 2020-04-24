@@ -117,6 +117,9 @@ export default class Player extends Object2D {
         context.font = "bold 15px Arial";
         context.fillStyle = "white";
         context.fillText(" X " + this.lives, 352, 30);
+        context.font = "italic small-caps bold 15px Arial";
+        context.fillStyle = "red";
+        context.fillText("Level " + this.level, 332, 50);
     }
 
     setPos(pos) { //pos = [x,y]

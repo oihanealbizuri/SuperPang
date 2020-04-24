@@ -75,6 +75,7 @@ Promise.all([
                 hooks.clear();
                 startLevel(++level, balls, ballFactory, buster).then(r => {
                     balls = r;
+                    buster.level ++;
                     drawBackground = loadBackground(backgrounds, level);
                 });
                 buster.withBonus = false;
@@ -103,6 +104,7 @@ Promise.all([
 
         startLevel(level, balls, ballFactory, buster).then(r => {
             balls = r;
+            buster.level = level;
             drawBackground = loadBackground(backgrounds, level);
             update(0);
         });
