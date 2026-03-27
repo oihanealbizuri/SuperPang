@@ -1,4 +1,3 @@
-
 export class MusicController {
     constructor() {
         this.soundtrack = new Howl({ src: ['audio/soundtrack.mp3'], loop: true, volume: 0.7 });
@@ -14,7 +13,7 @@ export class MusicController {
     play(event_name) {
         switch (event_name) {
             case "main":
-                var id1 = this.soundtrack.play(); // id para control
+                const id1 = this.soundtrack.play(); // id for control
                 break;
             case "bonus":
                 this.bonus_track.play();
@@ -35,9 +34,8 @@ export class MusicController {
                 this.start_track.play();
                 break;
             case "win":
-                var id2 = this.win.play('cut');
+                this.win.play('cut');
                 break;
-
         }
     }
 }

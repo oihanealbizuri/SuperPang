@@ -3,7 +3,7 @@ import {
     loadBackground, loadBonusFactory,
     loadBuster,
     loadHookManager,
-    loadImage, loadLevel,
+    loadImage,
     startLevel
 } from "./loaders.js";
 import Settings from "./Settings.js";
@@ -17,7 +17,6 @@ Settings.SCREEN_HEIGHT = canvas.height;
 Settings.SCREEN_WIDTH = canvas.width;
 
 const music = new MusicController();
-
 
 Promise.all([
     loadImage('img/player.png'),
@@ -58,11 +57,11 @@ Promise.all([
             buster.update(deltaTime / 1000);
             balls.forEach(ball => {
                 ball.draw(context);
-                ball.update(deltaTime / 1000);
+                ball.update();
             });
             hooks.forEach(hook => {
-                    hook.draw(context);
-                    hook.update(deltaTime / 1000);
+                hook.draw(context);
+                hook.update(deltaTime / 1000);
             });
             bonusSet.forEach(bonus => {
                 bonus.draw(context);
@@ -86,7 +85,7 @@ Promise.all([
                 hooks.clear();
                 startLevel(++level, balls, ballFactory, buster).then(r => {
                     balls = r;
-                    buster.level ++;
+                    buster.level++;
                     drawBackground = loadBackground(backgrounds, level);
                 });
                 buster.withBonus = false;
@@ -106,7 +105,7 @@ Promise.all([
                 maxTime = maxTime + time / 1000;
             }
 
-            if (originalLives === 0 || maxTime < 0){
+            if (originalLives === 0 || maxTime < 0) {
                 music.play('end');
             }
 
@@ -124,6 +123,5 @@ Promise.all([
             maxTime = Settings.MAX_TIME;
             update(0);
         });
-
 
     });

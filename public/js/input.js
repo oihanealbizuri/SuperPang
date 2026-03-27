@@ -5,17 +5,17 @@ export function setupKeyboard(buster) {
 
     input.addMapping('ArrowUp', keyState => {
         if (keyState) {
-            console.log('ArrowUp');
+            console.debug('ArrowUp');
         }
     });
     input.addMapping('ArrowDown', keyState => {
         if (keyState) {
-            console.log('ArrowDown');
+            console.debug('ArrowDown');
         }
     });
     input.addMapping('ArrowRight', keyState => {
         if (keyState) {
-            console.log('ArrowRight');
+            console.debug('ArrowRight');
             buster.direction.x++;
         } else {
             buster.direction.x = 0;
@@ -23,7 +23,7 @@ export function setupKeyboard(buster) {
     });
     input.addMapping('ArrowLeft', keyState => {
         if (keyState) {
-            console.log('ArrowLeft');
+            console.debug('ArrowLeft');
             buster.direction.x--;
         } else {
             buster.direction.x = 0;
@@ -31,14 +31,14 @@ export function setupKeyboard(buster) {
     });
     input.addMapping('Space', keyState => {
         if (keyState) {
-            console.log('Space');
+            console.debug('Space');
             buster.shoot()
         }
     });
     input.addMapping('KeyK', keyState => {
         if (keyState) {
-            console.log('KeyK');
-            // Super-arma deshabilitada
+            console.debug('KeyK');
+            // Easter egg: super-skill enabled :)
             buster.killThemAll()
         }
     });

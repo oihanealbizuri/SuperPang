@@ -17,24 +17,23 @@ export function loadLevel(currentLevel) {
 
 export function startLevel(level, balls, ballFactory, buster) {
 
-       return loadLevel(level)
-            .then(levelSpec => Promise.all([
-                levelSpec,
-                loadBalls(levelSpec.balls, ballFactory),
-                // loadBalls(balls, ballFactory),
-            ]))
-            .then(([levelSpec, ballsList]) => {
-                buster.setPos(levelSpec.player.pos);
-                balls = ballsList;
-                return balls;
-            })
+    return loadLevel(level)
+        .then(levelSpec => Promise.all([
+            levelSpec,
+            loadBalls(levelSpec.balls, ballFactory)
+        ]))
+        .then(([levelSpec, ballsList]) => {
+            buster.setPos(levelSpec.player.pos);
+            balls = ballsList;
+            return balls;
+        })
 }
 
 export function loadAllBalls() {
     return loadImage('img/balls20.png');
 }
 
-export function loadBalls(balls, ballFactory) { //json de balls + ballFactory
+export function loadBalls(balls, ballFactory) {
     let ballsList = new Set();
     balls.forEach(ball => {
         let position = new Vec2D(ball.pos[0], ball.pos[1]);
@@ -62,8 +61,6 @@ export function loadBuster(image) {
     spriteSheet.define('buster-3', 0, 0);
     spriteSheet.define('lives', 8, 0);
 
-    // const pos = new Vec2D(playerSpec.pos[0], playerSpec.pos[1]);
-    // crear siempre en posición fija y luego cambiar
     const pos = new Vec2D(184, 253);
     const size = new Vec2D(32, 32);
 
@@ -85,7 +82,7 @@ export function loadBackground(backgrounds, level) {
     buffer.height = 192;
     // recortar super-sprite y dejarlo preparado en un buffer
     const context = buffer.getContext("2d");
-    context.drawImage(backgrounds, (level - 1)*buffer.width, 0, buffer.width, buffer.height, 0, 0, buffer.width, buffer.height,);
+    context.drawImage(backgrounds, (level - 1) * buffer.width, 0, buffer.width, buffer.height, 0, 0, buffer.width, buffer.height,);
     return function (ctx) {
         ctx.drawImage(buffer, 0, 0, buffer.width, buffer.height, 0, 0, Settings.SCREEN_WIDTH, Settings.SCREEN_HEIGHT);
     }
