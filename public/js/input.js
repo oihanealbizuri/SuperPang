@@ -39,7 +39,7 @@ export function setupKeyboard(buster) {
         if (keyState) {
             console.log('KeyK');
             // Super-arma deshabilitada
-            // buster.killThemAll()
+            buster.killThemAll()
         }
     });
     return input;

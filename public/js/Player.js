@@ -1,7 +1,5 @@
 import {Object2D, Vec2D} from "./math.js";
 import Settings from "./Settings.js";
-import {Hook} from "./Hook.js";
-import {loadImage} from "./loaders.js";
 import {MusicController} from "./MusicController.js";
 
 const frames = ['buster-1', 'buster-2', 'buster-3'];
@@ -11,12 +9,10 @@ export default class Player extends Object2D {
     routeFrame() {
         if (this.direction.x !== 0) {
             const frameIndex = Math.floor(this.distance / 10) % frames.length;
-            const frameName = frames[frameIndex];
-            return frameName;
+            return frames[frameIndex];
         }
         return 'idle';
     }
-
 
     constructor(size, pos, spriteSheet) {
         super(size, pos);
@@ -43,9 +39,19 @@ export default class Player extends Object2D {
     }
 
     killThemAll() {
-        for (var i = 0; i < Settings.SCREEN_WIDTH; i += 5) {
-            this.hookManager(i, this.position.y + this.size.y/2, 0);
-        }
+        const y = this.position.y + this.size.y / 2; // bottom start
+        const spacing = Settings.SCREEN_WIDTH / Settings.MAX_HOOKS; // spread hooks evenly
+        let i = 0;
+
+        const interval = setInterval(() => {
+            const x = spacing / 2 + i * spacing; // center each hook in its segment
+            this.hookManager(x, y, 0);
+            i++;
+
+            if (i >= Settings.MAX_HOOKS) {
+                clearInterval(interval);
+            }
+        }, 200); // delay between hooks so they appear one by one
     }
 
     oneLiveLess() {
@@ -53,17 +59,13 @@ export default class Player extends Object2D {
         this.withBonus = false;
     }
 
-
     // time respresenta el tiempo que ha pasado desde la última ejecución
     update(time) {
-
         if (this.direction.x !== 0) {
             this.distance += Settings.PLAYER_SPEED * time;
         } else {
             this.distance = 0;
         }
-
-        // console.log(this.distance, time);
 
         /*
         Asume por el momento que Settings.SCREEN_HEIGHT y Settings.SCREEN_WIDTH indican el tamaño de
@@ -101,14 +103,12 @@ export default class Player extends Object2D {
             this.position.y = Settings.SCREEN_HEIGHT - this.height - Settings.MARGIN;
         }
 
-
         if (this.direction.x !== 0) {
             this.distance += Settings.PLAYER_SPEED * time;
         } else {
             this.distance = 0;
         }
     }
-
 
     draw(context) {
         // pintar this.sprite en el contexto (en posicion x,y)
@@ -122,7 +122,7 @@ export default class Player extends Object2D {
         context.fillText("Level " + this.level, 332, 50);
     }
 
-    setPos(pos) { //pos = [x,y]
+    setPos(pos) {
         this.position.x = pos[0];
         this.position.y = pos[1];
     }

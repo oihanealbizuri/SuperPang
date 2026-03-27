@@ -1,0 +1,74 @@
+/* index.css */
+
+body {
+    margin: 0;
+    background: radial-gradient(circle, #111 0%, #000 100%);
+    color: #00ffcc;
+    font-family: 'Press Start 2P', monospace;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 8px #00ffcc;
+}
+
+.pixel-title {
+    font-size: 28px;
+    color: #00ffcc;
+    letter-spacing: 2px;
+    position: relative;
+    text-transform: uppercase;
+
+    /* Pixel outline effect */
+    text-shadow:
+            2px 2px 0 #000,
+            4px 4px 0 #008f7a,
+            6px 6px 0 #004f45;
+
+    animation: glow 1.5s infinite alternate;
+}
+
+/* Neon glow animation */
+@keyframes glow {
+    from {
+        text-shadow:
+                2px 2px 0 #000,
+                4px 4px 0 #008f7a,
+                6px 6px 0 #004f45,
+                0 0 5px #00ffcc;
+    }
+    to {
+        text-shadow:
+                2px 2px 0 #000,
+                4px 4px 0 #00ffcc,
+                6px 6px 0 #008f7a,
+                0 0 15px #00ffcc;
+    }
+}
+
+.game-container {
+    padding: 20px;
+    border: 3px solid #00ffcc;
+    box-shadow: 0 0 20px #00ffcc;
+    background-color: #111;
+}
+
+canvas {
+    display: block;
+    border: 2px solid #00ffcc;
+    image-rendering: pixelated;
+}
+
+.footer {
+    margin-top: 15px;
+    font-size: 10px;
+    color: #888;
+}

@@ -9,7 +9,7 @@ import {MusicController} from "./MusicController.js";
 
 export function loadLevel(currentLevel) {
     if (currentLevel > 1) {
-        var music = new MusicController();
+        const music = new MusicController();
         music.play('win');
     }
     return fetch(`levels/${currentLevel}.json`).then(r => r.json());
@@ -30,17 +30,7 @@ export function startLevel(level, balls, ballFactory, buster) {
             })
 }
 
-export function loadAllBalls() { // cargar todas las imagenes y devolverlas en una
-    // let ballsList;
-    // Promise.all([
-    //     loadImage('img/balls40.png'),
-    //     loadImage('img/balls20.png'),
-    //     loadImage('img/balls10.png'),
-    //     loadImage('img/balls5.png')])
-    //     .then([b40, b20, b10, b5].forEach(img => {
-    //             loadBalls(img, )
-    //         })
-    //     )
+export function loadAllBalls() {
     return loadImage('img/balls20.png');
 }
 
@@ -81,13 +71,12 @@ export function loadBuster(image) {
 }
 
 export function loadHookManager(imageRope, imageChain, hooks) {
-    let hookManager = function (x, y, type) {
+    return function (x, y, type) {
         if (hooks.size < Settings.MAX_HOOKS) {
             let position = new Vec2D(x, y);
             hooks.add(new Hook(0, position, type, imageRope, imageChain));
         }
     };
-    return hookManager;
 }
 
 export function loadBackground(backgrounds, level) {

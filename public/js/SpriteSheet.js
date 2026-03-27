@@ -7,15 +7,6 @@ export default class SpriteSheet {
     }
 
     define(name, x, y) {
-        // OLD
-        // const buffer = document.createElement('canvas');
-        // buffer.width = this.width;
-        // buffer.height = this.height;
-        // buffer.getContext('2d').drawImage(this.image, x * this.width, y * this.height,
-        //     this.width, this.height, 0, 0, this.width, this.height);
-        // this.sprites.set(name, buffer);
-
-        // NEW
         const buffers = [false, true].map(flip => {
             const buffer = document.createElement('canvas');
             buffer.width = this.width;
@@ -41,14 +32,6 @@ export default class SpriteSheet {
         context.drawImage(buffer, x, y);
     }
 
-    // OLD
-    // get(name) {
-    //     // completed
-    //     const buffer = this.sprites.get(name);
-    //     return buffer;
-    // }
-
-    // NEW
     get(name, heading = 0) {
         return this.sprites.get(name)[heading > 0 ? 1 : 0];
     }

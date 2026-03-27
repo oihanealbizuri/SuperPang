@@ -2,9 +2,34 @@
 
 This is an implementation of the classic **Super Pang** game for the web.
 
-## Screenshot
+<!-- Main big screenshot -->
+<div style="text-align: center; margin-bottom: 20px;">
+  <img class="level-thumb" src="public/assets/SuperPang_level1.png" alt="Level 1" style="width: 600px; border: 3px solid #00ffcc; border-radius: 8px;">
+</div>
 
-![Game Screenshot](public/assets/SuperPang.png)
+<!-- Row of 3 smaller screenshots with hover glow -->
+<div style="text-align: center;">
+  <img class="level-thumb" src="public/assets/SuperPang_level2.png" alt="Level 2">
+  <img class="level-thumb" src="public/assets/SuperPang_level3.png" alt="Level 3">
+  <img class="level-thumb" src="public/assets/SuperPang_level4.png" alt="Level 4">
+</div>
+
+<!-- Hover glow CSS -->
+<style>
+  .level-thumb {
+    width: 180px;
+    border: 2px solid #00ffcc;
+    border-radius: 5px;
+    margin: 5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 0 #00ffcc;
+  }
+
+  .level-thumb:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #00ffcc, 0 0 30px #00ffcc;
+  }
+</style>
 
 ## How to Play
 
