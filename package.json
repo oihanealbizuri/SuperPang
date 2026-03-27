@@ -10,7 +10,6 @@
   "author": "Oihane Albizuri",
   "license": "ISC",
   "dependencies": {
-    "howler": "^2.1.3",
-    "serve": "^14.1.2"
+    "serve": "^14.2.6"
   }
 }
